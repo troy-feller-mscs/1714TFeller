@@ -1,0 +1,346 @@
+USE [master]
+GO
+/****** Object:  Database [Photography]    Script Date: 11/11/2020 11:51:06 AM ******/
+CREATE DATABASE [Photography]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Photography', FILENAME = N'C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfeller2h\App_Data\Photography.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Photography_log', FILENAME = N'C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfeller2h\App_Data\Photography_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [Photography] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Photography].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Photography] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Photography] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Photography] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Photography] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Photography] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Photography] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [Photography] SET AUTO_SHRINK ON 
+GO
+ALTER DATABASE [Photography] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Photography] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Photography] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Photography] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Photography] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Photography] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Photography] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Photography] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Photography] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Photography] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Photography] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Photography] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Photography] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Photography] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Photography] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Photography] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Photography] SET  MULTI_USER 
+GO
+ALTER DATABASE [Photography] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Photography] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Photography] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Photography] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Photography] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Photography] SET QUERY_STORE = OFF
+GO
+USE [Photography]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+USE [Photography]
+GO
+/****** Object:  Table [dbo].[Appointments]    Script Date: 11/11/2020 11:51:06 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Appointments](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[apptDate] [datetime] NOT NULL,
+	[apptCost] [decimal](18, 0) NOT NULL,
+	[CustomerId_Id] [int] NOT NULL,
+	[PhotographerId_Id] [int] NOT NULL,
+	[Studio_Id] [int] NOT NULL,
+ CONSTRAINT [PK_Appointments] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Invoices]    Script Date: 11/11/2020 11:51:06 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Invoices](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[invoiceDate] [datetime] NOT NULL,
+	[dueDate] [datetime] NOT NULL,
+	[Reciept_Id] [int] NOT NULL,
+ CONSTRAINT [PK_Invoices] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[People]    Script Date: 11/11/2020 11:51:06 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[People](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[firstName] [nvarchar](15) NOT NULL,
+	[lastName] [nvarchar](15) NOT NULL,
+	[Phone] [nvarchar](15) NOT NULL,
+	[Email] [nvarchar](25) NOT NULL,
+	[Address] [nvarchar](25) NOT NULL,
+ CONSTRAINT [PK_People] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Portraits]    Script Date: 11/11/2020 11:51:06 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Portraits](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[portRatio] [nvarchar](5) NOT NULL,
+	[portCost] [decimal](18, 0) NOT NULL,
+ CONSTRAINT [PK_Portraits] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Reciepts]    Script Date: 11/11/2020 11:51:06 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Reciepts](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[recieptDate] [nvarchar](10) NOT NULL,
+	[Total] [decimal](18, 0) NOT NULL,
+	[Appointment_Id] [int] NOT NULL,
+	[Portrait_Id] [int] NOT NULL,
+ CONSTRAINT [PK_Reciepts] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Studios]    Script Date: 11/11/2020 11:51:06 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Studios](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[SqrFt] [int] NOT NULL,
+	[studioAddress] [nvarchar](25) NOT NULL,
+ CONSTRAINT [PK_Studios] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Appointments] ON 
+GO
+INSERT [dbo].[Appointments] ([Id], [apptDate], [apptCost], [CustomerId_Id], [PhotographerId_Id], [Studio_Id]) VALUES (1, CAST(N'2020-08-20T00:00:00.000' AS DateTime), CAST(100 AS Decimal(18, 0)), 8, 1, 1)
+GO
+INSERT [dbo].[Appointments] ([Id], [apptDate], [apptCost], [CustomerId_Id], [PhotographerId_Id], [Studio_Id]) VALUES (2, CAST(N'2020-09-25T00:00:00.000' AS DateTime), CAST(100 AS Decimal(18, 0)), 4, 2, 1)
+GO
+INSERT [dbo].[Appointments] ([Id], [apptDate], [apptCost], [CustomerId_Id], [PhotographerId_Id], [Studio_Id]) VALUES (10, CAST(N'2020-09-25T00:00:00.000' AS DateTime), CAST(75 AS Decimal(18, 0)), 5, 4, 3)
+GO
+INSERT [dbo].[Appointments] ([Id], [apptDate], [apptCost], [CustomerId_Id], [PhotographerId_Id], [Studio_Id]) VALUES (11, CAST(N'2020-09-25T00:00:00.000' AS DateTime), CAST(80 AS Decimal(18, 0)), 6, 1, 2)
+GO
+INSERT [dbo].[Appointments] ([Id], [apptDate], [apptCost], [CustomerId_Id], [PhotographerId_Id], [Studio_Id]) VALUES (12, CAST(N'2020-11-11T00:00:00.000' AS DateTime), CAST(75 AS Decimal(18, 0)), 7, 2, 3)
+GO
+SET IDENTITY_INSERT [dbo].[Appointments] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Invoices] ON 
+GO
+INSERT [dbo].[Invoices] ([Id], [invoiceDate], [dueDate], [Reciept_Id]) VALUES (1, CAST(N'2020-08-21T00:00:00.000' AS DateTime), CAST(N'2020-08-28T00:00:00.000' AS DateTime), 1)
+GO
+INSERT [dbo].[Invoices] ([Id], [invoiceDate], [dueDate], [Reciept_Id]) VALUES (2, CAST(N'2020-09-26T00:00:00.000' AS DateTime), CAST(N'2020-10-03T00:00:00.000' AS DateTime), 2)
+GO
+INSERT [dbo].[Invoices] ([Id], [invoiceDate], [dueDate], [Reciept_Id]) VALUES (3, CAST(N'2020-09-26T00:00:00.000' AS DateTime), CAST(N'2020-10-03T00:00:00.000' AS DateTime), 3)
+GO
+INSERT [dbo].[Invoices] ([Id], [invoiceDate], [dueDate], [Reciept_Id]) VALUES (4, CAST(N'2020-09-26T00:00:00.000' AS DateTime), CAST(N'2020-10-03T00:00:00.000' AS DateTime), 4)
+GO
+INSERT [dbo].[Invoices] ([Id], [invoiceDate], [dueDate], [Reciept_Id]) VALUES (5, CAST(N'2020-11-12T00:00:00.000' AS DateTime), CAST(N'2020-11-19T00:00:00.000' AS DateTime), 5)
+GO
+SET IDENTITY_INSERT [dbo].[Invoices] OFF
+GO
+SET IDENTITY_INSERT [dbo].[People] ON 
+GO
+INSERT [dbo].[People] ([Id], [firstName], [lastName], [Phone], [Email], [Address]) VALUES (1, N'Greg ', N'Holt', N'(654)-134-1234', N'g.holt@email.com', N'544 Windy Road')
+GO
+INSERT [dbo].[People] ([Id], [firstName], [lastName], [Phone], [Email], [Address]) VALUES (2, N'Barry ', N'Menta', N'(654)-123-1551', N'b.menta@email.com', N'877 Some Road')
+GO
+INSERT [dbo].[People] ([Id], [firstName], [lastName], [Phone], [Email], [Address]) VALUES (4, N'Sasha ', N'Nill', N'(654)-878-8444', N's.nill@email.com', N'1541 County Road')
+GO
+INSERT [dbo].[People] ([Id], [firstName], [lastName], [Phone], [Email], [Address]) VALUES (5, N'Bill ', N'Jim', N'(654)-323-2452', N'b.jim@email.com', N'8778 Fargone Street')
+GO
+INSERT [dbo].[People] ([Id], [firstName], [lastName], [Phone], [Email], [Address]) VALUES (6, N'Sarah', N'Gibs', N'(654)-342-4544', N's.gibs@email.com', N'778 Some Road')
+GO
+INSERT [dbo].[People] ([Id], [firstName], [lastName], [Phone], [Email], [Address]) VALUES (7, N'Kyle ', N'Rodder', N'(654)-134-1341', N'k.rodder@email.com', N'2353 Main Street')
+GO
+INSERT [dbo].[People] ([Id], [firstName], [lastName], [Phone], [Email], [Address]) VALUES (8, N'Ned', N'Ferry', N'(654)-231-1235', N'n.ferry@email.com', N'2345 Main Street')
+GO
+SET IDENTITY_INSERT [dbo].[People] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Portraits] ON 
+GO
+INSERT [dbo].[Portraits] ([Id], [portRatio], [portCost]) VALUES (1, N'1:1', CAST(20 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Portraits] ([Id], [portRatio], [portCost]) VALUES (2, N'5:4', CAST(25 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Portraits] ([Id], [portRatio], [portCost]) VALUES (3, N'4:3', CAST(20 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Portraits] ([Id], [portRatio], [portCost]) VALUES (4, N'3:2', CAST(15 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Portraits] ([Id], [portRatio], [portCost]) VALUES (5, N'5:3', CAST(25 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Portraits] ([Id], [portRatio], [portCost]) VALUES (6, N'16:9', CAST(30 AS Decimal(18, 0)))
+GO
+INSERT [dbo].[Portraits] ([Id], [portRatio], [portCost]) VALUES (7, N'3:1', CAST(15 AS Decimal(18, 0)))
+GO
+SET IDENTITY_INSERT [dbo].[Portraits] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Reciepts] ON 
+GO
+INSERT [dbo].[Reciepts] ([Id], [recieptDate], [Total], [Appointment_Id], [Portrait_Id]) VALUES (1, N'8/21/2020', CAST(120 AS Decimal(18, 0)), 1, 1)
+GO
+INSERT [dbo].[Reciepts] ([Id], [recieptDate], [Total], [Appointment_Id], [Portrait_Id]) VALUES (2, N'9/26/2020', CAST(125 AS Decimal(18, 0)), 2, 5)
+GO
+INSERT [dbo].[Reciepts] ([Id], [recieptDate], [Total], [Appointment_Id], [Portrait_Id]) VALUES (3, N'9/26/2020', CAST(105 AS Decimal(18, 0)), 10, 5)
+GO
+INSERT [dbo].[Reciepts] ([Id], [recieptDate], [Total], [Appointment_Id], [Portrait_Id]) VALUES (4, N'9/26/2020', CAST(100 AS Decimal(18, 0)), 11, 1)
+GO
+INSERT [dbo].[Reciepts] ([Id], [recieptDate], [Total], [Appointment_Id], [Portrait_Id]) VALUES (5, N'11/12/2020', CAST(90 AS Decimal(18, 0)), 12, 7)
+GO
+SET IDENTITY_INSERT [dbo].[Reciepts] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Studios] ON 
+GO
+INSERT [dbo].[Studios] ([Id], [SqrFt], [studioAddress]) VALUES (1, 1000, N'Main Street')
+GO
+INSERT [dbo].[Studios] ([Id], [SqrFt], [studioAddress]) VALUES (2, 900, N'LakeShore')
+GO
+INSERT [dbo].[Studios] ([Id], [SqrFt], [studioAddress]) VALUES (3, 800, N'Downtown Ally')
+GO
+SET IDENTITY_INSERT [dbo].[Studios] OFF
+GO
+/****** Object:  Index [IX_FK_CustomerAppointment]    Script Date: 11/11/2020 11:51:06 AM ******/
+CREATE NONCLUSTERED INDEX [IX_FK_CustomerAppointment] ON [dbo].[Appointments]
+(
+	[CustomerId_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_FK_PhotographerAppoinment]    Script Date: 11/11/2020 11:51:06 AM ******/
+CREATE NONCLUSTERED INDEX [IX_FK_PhotographerAppoinment] ON [dbo].[Appointments]
+(
+	[PhotographerId_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_FK_StudioAppointment]    Script Date: 11/11/2020 11:51:06 AM ******/
+CREATE NONCLUSTERED INDEX [IX_FK_StudioAppointment] ON [dbo].[Appointments]
+(
+	[Studio_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_FK_RecieptInvoice]    Script Date: 11/11/2020 11:51:06 AM ******/
+CREATE NONCLUSTERED INDEX [IX_FK_RecieptInvoice] ON [dbo].[Invoices]
+(
+	[Reciept_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_FK_AppointmentReciept]    Script Date: 11/11/2020 11:51:06 AM ******/
+CREATE NONCLUSTERED INDEX [IX_FK_AppointmentReciept] ON [dbo].[Reciepts]
+(
+	[Appointment_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_FK_PortraitReciept]    Script Date: 11/11/2020 11:51:06 AM ******/
+CREATE NONCLUSTERED INDEX [IX_FK_PortraitReciept] ON [dbo].[Reciepts]
+(
+	[Portrait_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Appointments]  WITH CHECK ADD  CONSTRAINT [FK_CustomerAppointment] FOREIGN KEY([CustomerId_Id])
+REFERENCES [dbo].[People] ([Id])
+GO
+ALTER TABLE [dbo].[Appointments] CHECK CONSTRAINT [FK_CustomerAppointment]
+GO
+ALTER TABLE [dbo].[Appointments]  WITH CHECK ADD  CONSTRAINT [FK_PhotographerAppoinment] FOREIGN KEY([PhotographerId_Id])
+REFERENCES [dbo].[People] ([Id])
+GO
+ALTER TABLE [dbo].[Appointments] CHECK CONSTRAINT [FK_PhotographerAppoinment]
+GO
+ALTER TABLE [dbo].[Appointments]  WITH CHECK ADD  CONSTRAINT [FK_StudioAppointment] FOREIGN KEY([Studio_Id])
+REFERENCES [dbo].[Studios] ([Id])
+GO
+ALTER TABLE [dbo].[Appointments] CHECK CONSTRAINT [FK_StudioAppointment]
+GO
+ALTER TABLE [dbo].[Invoices]  WITH CHECK ADD  CONSTRAINT [FK_RecieptInvoice] FOREIGN KEY([Reciept_Id])
+REFERENCES [dbo].[Reciepts] ([Id])
+GO
+ALTER TABLE [dbo].[Invoices] CHECK CONSTRAINT [FK_RecieptInvoice]
+GO
+ALTER TABLE [dbo].[Reciepts]  WITH CHECK ADD  CONSTRAINT [FK_AppointmentReciept] FOREIGN KEY([Appointment_Id])
+REFERENCES [dbo].[Appointments] ([Id])
+GO
+ALTER TABLE [dbo].[Reciepts] CHECK CONSTRAINT [FK_AppointmentReciept]
+GO
+ALTER TABLE [dbo].[Reciepts]  WITH CHECK ADD  CONSTRAINT [FK_PortraitReciept] FOREIGN KEY([Portrait_Id])
+REFERENCES [dbo].[Portraits] ([Id])
+GO
+ALTER TABLE [dbo].[Reciepts] CHECK CONSTRAINT [FK_PortraitReciept]
+GO
+USE [master]
+GO
+ALTER DATABASE [Photography] SET  READ_WRITE 
+GO

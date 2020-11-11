@@ -1,0 +1,12 @@
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\bin\Debug\1714tfellerex2g.dll.config
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\bin\Debug\1714tfellerex2g.dll
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\bin\Debug\1714tfellerex2g.pdb
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\bin\Debug\EntityFramework.dll
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\bin\Debug\EntityFramework.xml
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\obj\Debug\1714tfellerex2g.csprojAssemblyReference.cache
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\obj\Debug\1714tfellerex2g.csproj.CoreCompileInputs.cache
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\obj\Debug\1714tfellerex2g.csproj.CopyComplete
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\obj\Debug\1714tfellerex2g.dll
+C:\Users\troyf\Documents\Classes\1714\Project\1714TFeller\1714TFeller\1714tfellerex2g\obj\Debug\1714tfellerex2g.pdb

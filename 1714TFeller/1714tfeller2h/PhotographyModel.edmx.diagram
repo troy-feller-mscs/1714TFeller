@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b9c7689e859e4d2889bda3494138035b" Name="Diagram1" >
+        <EntityTypeShape EntityType="PhotographyModel.Person" Width="2.125" PointX="11.625" PointY="1.125" />
+        <EntityTypeShape EntityType="PhotographyModel.Invoice" Width="1.5" PointX="10.875" PointY="4.625" />
+        <EntityTypeShape EntityType="PhotographyModel.Reciept" Width="1.5" PointX="8.5" PointY="4.625" />
+        <EntityTypeShape EntityType="PhotographyModel.Appointment" Width="1.5" PointX="8.375" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotographyModel.Portrait" Width="1.5" PointX="5.625" PointY="4.625" />
+        <EntityTypeShape EntityType="PhotographyModel.Studio" Width="1.5" PointX="5.5" PointY="1.125" />
+        <AssociationConnector Association="PhotographyModel.CustomerAppointment" ></AssociationConnector>
+        <AssociationConnector Association="PhotographyModel.PhotographerAppoinment" />
+        <AssociationConnector Association="PhotographyModel.RecieptInvoice" />
+        <AssociationConnector Association="PhotographyModel.AppointmentReciept" />
+        <AssociationConnector Association="PhotographyModel.StudioAppointment" />
+        <AssociationConnector Association="PhotographyModel.PortraitReciept" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

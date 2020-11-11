@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PhotographyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PhotographyModelStoreContainer">
+    <EntitySet Name="People" EntityType="PhotographyModel.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Invoices" EntityType="PhotographyModel.Store.Invoices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reciepts" EntityType="PhotographyModel.Store.Reciepts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Appointments" EntityType="PhotographyModel.Store.Appointments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Portraits" EntityType="PhotographyModel.Store.Portraits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Studios" EntityType="PhotographyModel.Store.Studios" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PersonAppointment" Association="PhotographyModel.Store.CustomerAppointment">
+      <End Role="Customer" EntitySet="People" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="PersonAppointment1" Association="PhotographyModel.Store.PhotographerAppoinment">
+      <End Role="Photographer" EntitySet="People" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="RecieptInvoice" Association="PhotographyModel.Store.RecieptInvoice">
+      <End Role="Reciept" EntitySet="Reciepts" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="AppointmentReciept" Association="PhotographyModel.Store.AppointmentReciept">
+      <End Role="Appointment" EntitySet="Appointments" />
+      <End Role="Reciept" EntitySet="Reciepts" />
+    </AssociationSet>
+    <AssociationSet Name="StudioAppointment" Association="PhotographyModel.Store.StudioAppointment">
+      <End Role="Studio" EntitySet="Studios" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="PortraitReciept" Association="PhotographyModel.Store.PortraitReciept">
+      <End Role="Portrait" EntitySet="Portraits" />
+      <End Role="Reciept" EntitySet="Reciepts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="lastName" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="Phone" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Invoices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="invoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="dueDate" Type="datetime" Nullable="false" />
+    <Property Name="Reciept_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reciepts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="recieptDate" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Total" Type="decimal" Nullable="false" />
+    <Property Name="Appointment_Id" Type="int" Nullable="false" />
+    <Property Name="Portrait_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="apptDate" Type="datetime" Nullable="false" />
+    <Property Name="apptCost" Type="decimal" Nullable="false" />
+    <Property Name="CustomerId_Id" Type="int" Nullable="false" />
+    <Property Name="PhotographerId_Id" Type="int" Nullable="false" />
+    <Property Name="Studio_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Portraits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="portRatio" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="portCost" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Studios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SqrFt" Type="int" Nullable="false" />
+    <Property Name="studioAddress" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <Association Name="CustomerAppointment">
+    <End Role="Customer" Type="PhotographyModel.Store.People" Multiplicity="1" />
+    <End Role="Appointment" Type="PhotographyModel.Store.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="CustomerId_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PhotographerAppoinment">
+    <End Role="Photographer" Type="PhotographyModel.Store.People" Multiplicity="1" />
+    <End Role="Appointment" Type="PhotographyModel.Store.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Photographer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="PhotographerId_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RecieptInvoice">
+    <End Role="Reciept" Type="PhotographyModel.Store.Reciepts" Multiplicity="1" />
+    <End Role="Invoice" Type="PhotographyModel.Store.Invoices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reciept">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="Reciept_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AppointmentReciept">
+    <End Role="Appointment" Type="PhotographyModel.Store.Appointments" Multiplicity="1" />
+    <End Role="Reciept" Type="PhotographyModel.Store.Reciepts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reciept">
+        <PropertyRef Name="Appointment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudioAppointment">
+    <End Role="Studio" Type="PhotographyModel.Store.Studios" Multiplicity="1" />
+    <End Role="Appointment" Type="PhotographyModel.Store.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Studio">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="Studio_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PortraitReciept">
+    <End Role="Portrait" Type="PhotographyModel.Store.Portraits" Multiplicity="1" />
+    <End Role="Reciept" Type="PhotographyModel.Store.Reciepts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Portrait">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reciept">
+        <PropertyRef Name="Portrait_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="PhotographyModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="PhotographyModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="People" EntityType="PhotographyModel.Person" />
+          <EntitySet Name="Invoices" EntityType="PhotographyModel.Invoice" />
+          <EntitySet Name="Reciepts" EntityType="PhotographyModel.Reciept" />
+          <EntitySet Name="Appointments" EntityType="PhotographyModel.Appointment" />
+          <EntitySet Name="Portraits" EntityType="PhotographyModel.Portrait" />
+          <EntitySet Name="Studios" EntityType="PhotographyModel.Studio" />
+          <AssociationSet Name="PersonAppointment" Association="PhotographyModel.CustomerAppointment">
+            <End Role="Customer" EntitySet="People" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="PersonAppointment1" Association="PhotographyModel.PhotographerAppoinment">
+            <End Role="Photographer" EntitySet="People" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="RecieptInvoice" Association="PhotographyModel.RecieptInvoice">
+            <End Role="Reciept" EntitySet="Reciepts" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="AppointmentReciept" Association="PhotographyModel.AppointmentReciept">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="Reciept" EntitySet="Reciepts" />
+          </AssociationSet>
+          <AssociationSet Name="StudioAppointment" Association="PhotographyModel.StudioAppointment">
+            <End Role="Studio" EntitySet="Studios" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="PortraitReciept" Association="PhotographyModel.PortraitReciept">
+            <End Role="Portrait" EntitySet="Portraits" />
+            <End Role="Reciept" EntitySet="Reciepts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="15" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="15" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="15" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="25" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="25" />
+          <NavigationProperty Name="CustomerAppointment" Relationship="PhotographyModel.CustomerAppointment" FromRole="Customer" ToRole="Appointment" />
+          <NavigationProperty Name="PhotographerAppointment" Relationship="PhotographyModel.PhotographerAppoinment" FromRole="Photographer" ToRole="Appointment" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="invoiceDate" Type="DateTime" Nullable="false" />
+          <Property Name="dueDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Reciept" Relationship="PhotographyModel.RecieptInvoice" FromRole="Invoice" ToRole="Reciept" />
+        </EntityType>
+        <EntityType Name="Reciept">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="recieptDate" Type="String" Nullable="false" MaxLength="10" />
+          <Property Name="Total" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Invoices" Relationship="PhotographyModel.RecieptInvoice" FromRole="Reciept" ToRole="Invoice" />
+          <NavigationProperty Name="Appointment" Relationship="PhotographyModel.AppointmentReciept" FromRole="Reciept" ToRole="Appointment" />
+          <NavigationProperty Name="Portrait" Relationship="PhotographyModel.PortraitReciept" FromRole="Reciept" ToRole="Portrait" />
+        </EntityType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="apptDate" Type="DateTime" Nullable="false" />
+          <Property Name="apptCost" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="CustomerId" Relationship="PhotographyModel.CustomerAppointment" FromRole="Appointment" ToRole="Customer" />
+          <NavigationProperty Name="PhotographerId" Relationship="PhotographyModel.PhotographerAppoinment" FromRole="Appointment" ToRole="Photographer" />
+          <NavigationProperty Name="Reciepts" Relationship="PhotographyModel.AppointmentReciept" FromRole="Appointment" ToRole="Reciept" />
+          <NavigationProperty Name="Studio" Relationship="PhotographyModel.StudioAppointment" FromRole="Appointment" ToRole="Studio" />
+        </EntityType>
+        <EntityType Name="Portrait">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="portRatio" Type="String" Nullable="false" MaxLength="5" />
+          <Property Name="portCost" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Reciepts" Relationship="PhotographyModel.PortraitReciept" FromRole="Portrait" ToRole="Reciept" />
+        </EntityType>
+        <EntityType Name="Studio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SqrFt" Type="Int32" Nullable="false" />
+          <Property Name="studioAddress" Type="String" Nullable="false" MaxLength="25" />
+          <NavigationProperty Name="Appointments" Relationship="PhotographyModel.StudioAppointment" FromRole="Studio" ToRole="Appointment" />
+        </EntityType>
+        <Association Name="CustomerAppointment">
+          <End Type="PhotographyModel.Person" Role="Customer" Multiplicity="1" />
+          <End Type="PhotographyModel.Appointment" Role="Appointment" Multiplicity="*" />
+        </Association>
+        <Association Name="PhotographerAppoinment">
+          <End Type="PhotographyModel.Person" Role="Photographer" Multiplicity="1" />
+          <End Type="PhotographyModel.Appointment" Role="Appointment" Multiplicity="*" />
+        </Association>
+        <Association Name="RecieptInvoice">
+          <End Type="PhotographyModel.Reciept" Role="Reciept" Multiplicity="1" />
+          <End Type="PhotographyModel.Invoice" Role="Invoice" Multiplicity="*" />
+        </Association>
+        <Association Name="AppointmentReciept">
+          <End Type="PhotographyModel.Appointment" Role="Appointment" Multiplicity="1" />
+          <End Type="PhotographyModel.Reciept" Role="Reciept" Multiplicity="*" />
+        </Association>
+        <Association Name="StudioAppointment">
+          <End Type="PhotographyModel.Studio" Role="Studio" Multiplicity="1" />
+          <End Type="PhotographyModel.Appointment" Role="Appointment" Multiplicity="*" />
+        </Association>
+        <Association Name="PortraitReciept">
+          <End Type="PhotographyModel.Portrait" Role="Portrait" Multiplicity="1" />
+          <End Type="PhotographyModel.Reciept" Role="Reciept" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PhotographyModelStoreContainer" CdmEntityContainer="PhotographyModelContainer">
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="IsTypeOf(PhotographyModel.Person)">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="IsTypeOf(PhotographyModel.Invoice)">
+        <MappingFragment StoreEntitySet="Invoices">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="invoiceDate" ColumnName="invoiceDate" />
+          <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reciepts">
+      <EntityTypeMapping TypeName="IsTypeOf(PhotographyModel.Reciept)">
+        <MappingFragment StoreEntitySet="Reciepts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="recieptDate" ColumnName="recieptDate" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="IsTypeOf(PhotographyModel.Appointment)">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="apptDate" ColumnName="apptDate" />
+          <ScalarProperty Name="apptCost" ColumnName="apptCost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Portraits">
+      <EntityTypeMapping TypeName="IsTypeOf(PhotographyModel.Portrait)">
+        <MappingFragment StoreEntitySet="Portraits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="portRatio" ColumnName="portRatio" />
+          <ScalarProperty Name="portCost" ColumnName="portCost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Studios">
+      <EntityTypeMapping TypeName="IsTypeOf(PhotographyModel.Studio)">
+        <MappingFragment StoreEntitySet="Studios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SqrFt" ColumnName="SqrFt" />
+          <ScalarProperty Name="studioAddress" ColumnName="studioAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PersonAppointment" TypeName="PhotographyModel.CustomerAppointment" StoreEntitySet="Appointments">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Id" ColumnName="CustomerId_Id" />
+      </EndProperty>
+      <EndProperty Name="Appointment">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonAppointment1" TypeName="PhotographyModel.PhotographerAppoinment" StoreEntitySet="Appointments">
+      <EndProperty Name="Photographer">
+        <ScalarProperty Name="Id" ColumnName="PhotographerId_Id" />
+      </EndProperty>
+      <EndProperty Name="Appointment">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RecieptInvoice" TypeName="PhotographyModel.RecieptInvoice" StoreEntitySet="Invoices">
+      <EndProperty Name="Reciept">
+        <ScalarProperty Name="Id" ColumnName="Reciept_Id" />
+      </EndProperty>
+      <EndProperty Name="Invoice">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AppointmentReciept" TypeName="PhotographyModel.AppointmentReciept" StoreEntitySet="Reciepts">
+      <EndProperty Name="Appointment">
+        <ScalarProperty Name="Id" ColumnName="Appointment_Id" />
+      </EndProperty>
+      <EndProperty Name="Reciept">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudioAppointment" TypeName="PhotographyModel.StudioAppointment" StoreEntitySet="Appointments">
+      <EndProperty Name="Studio">
+        <ScalarProperty Name="Id" ColumnName="Studio_Id" />
+      </EndProperty>
+      <EndProperty Name="Appointment">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PortraitReciept" TypeName="PhotographyModel.PortraitReciept" StoreEntitySet="Reciepts">
+      <EndProperty Name="Portrait">
+        <ScalarProperty Name="Id" ColumnName="Portrait_Id" />
+      </EndProperty>
+      <EndProperty Name="Reciept">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
